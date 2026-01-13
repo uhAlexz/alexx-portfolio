@@ -5,17 +5,20 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Check, ArrowDown, ChevronRight, Copy } from 'lucide-react';
+import { Check, ArrowDown, Copy } from 'lucide-react';
 
 export default function Home() {
   const navbarRef = useRef<HTMLElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null); // For GSAP Context
 
   useEffect(() => {
+    // 1. Lenis Setup
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: true as any, // Type cast for older lenis versions
+      // @ts-expect-error Lenis types mismatch in some versions
+      smooth: true, 
     });
 
     function raf(time: number) {
@@ -24,39 +27,45 @@ export default function Home() {
     }
     requestAnimationFrame(raf);
 
+    // 2. GSAP Context (Fixes the navigation bug)
     gsap.registerPlugin(ScrollTrigger);
-
-    // Navbar Trigger
-    ScrollTrigger.create({
-      trigger: ".content-layer",
-      start: "top 90%",
-      onEnter: () => navbarRef.current?.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0'),
-      onLeaveBack: () => navbarRef.current?.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0')
-    });
-
-    // Arrow Fade
-    ScrollTrigger.create({
-      trigger: ".content-layer",
-      start: "top 100%",
-      onEnter: () => gsap.to(arrowRef.current, { opacity: 0, duration: 0.3 }),
-      onLeaveBack: () => gsap.to(arrowRef.current, { opacity: 0.7, duration: 0.3 })
-    });
-
-    // Scroll Animations
-    gsap.utils.toArray('.anim-scroll').forEach((element: any) => {
-      gsap.from(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        },
-        y: 30, opacity: 0, duration: 0.6, ease: "power3.out"
+    
+    const ctx = gsap.context(() => {
+      // Navbar Trigger
+      ScrollTrigger.create({
+        trigger: ".content-layer",
+        start: "top 90%",
+        onEnter: () => navbarRef.current?.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0'),
+        onLeaveBack: () => navbarRef.current?.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0')
       });
-    });
 
+      // Arrow Fade
+      ScrollTrigger.create({
+        trigger: ".content-layer",
+        start: "top 100%",
+        onEnter: () => gsap.to(arrowRef.current, { opacity: 0, duration: 0.3 }),
+        onLeaveBack: () => gsap.to(arrowRef.current, { opacity: 0.7, duration: 0.3 })
+      });
+
+      // Scroll Animations
+      // Cast to HTMLElement[] to fix lint error
+      const elements = gsap.utils.toArray('.anim-scroll') as HTMLElement[];
+      elements.forEach((element) => {
+        gsap.from(element, {
+          scrollTrigger: {
+            trigger: element,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          },
+          y: 30, opacity: 0, duration: 0.6, ease: "power3.out"
+        });
+      });
+    }, wrapperRef); // Scope to wrapper
+
+    // Cleanup
     return () => {
       lenis.destroy();
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ctx.revert(); // This kills all ScrollTriggers and animations created in this context
     };
   }, []);
 
@@ -66,7 +75,7 @@ export default function Home() {
   };
 
   return (
-    <main className="text-white">
+    <main className="text-white" ref={wrapperRef}>
       {/* Header */}
       <header 
         ref={navbarRef}

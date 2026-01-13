@@ -17,14 +17,20 @@ export default function CommissionPage() {
   
   // Step Management
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 4; // 1: Palette, 2: Description, 3: Images, 4: Review
+  const totalSteps = 5; // 1: Scope, 2: Palette, 3: Description, 4: Images, 5: Review
 
   // Form States
+  const [packageType, setPackageType] = useState('Standard');
+  const [frameCount, setFrameCount] = useState(1);
   const [coolors, setCoolors] = useState('');
   const [desc, setDesc] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [error, setError] = useState('');
+
+  // Calculations
+  const pricePerFrame = packageType === 'Standard' ? 2500 : 5000;
+  const estimatedPrice = pricePerFrame * frameCount;
 
   useEffect(() => {
     const checkUser = async () => {
@@ -44,8 +50,9 @@ export default function CommissionPage() {
   const nextStep = () => {
     setError('');
     // Validation
-    if (currentStep === 1 && !coolors.trim()) return setError('Please provide a link.');
-    if (currentStep === 2 && !desc.trim()) return setError('Please describe your request.');
+    if (currentStep === 1 && frameCount < 1) return setError('You need at least 1 frame.');
+    if (currentStep === 2 && !coolors.trim()) return setError('Please provide a link.');
+    if (currentStep === 3 && !desc.trim()) return setError('Please describe your request.');
     
     if (currentStep < totalSteps) {
       setCurrentStep(curr => curr + 1);
@@ -95,6 +102,9 @@ export default function CommissionPage() {
         body: JSON.stringify({
           username: user.user_metadata.full_name || user.email,
           discordId: user.user_metadata.provider_id,
+          packageType,
+          frameCount,
+          estimatedPrice,
           description: desc,
           coolors: coolors,
           images: imageUrls
@@ -156,7 +166,7 @@ export default function CommissionPage() {
           <ChevronLeft size={20} /> Back to Portfolio
         </Link>
 
-        <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl min-h-[500px] flex flex-col relative overflow-hidden">
+        <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl min-h-[500px] flex flex-col relative overflow-hidden backdrop-blur-xl">
           
           {/* Header & Progress */}
           {!user ? (
@@ -186,16 +196,18 @@ export default function CommissionPage() {
               <div className="flex justify-between items-end mb-6">
                  <div>
                     <h1 className="text-3xl font-bold">
-                        {currentStep === 1 && "Color Palette"}
-                        {currentStep === 2 && "The Vision"}
-                        {currentStep === 3 && "Visuals"}
-                        {currentStep === 4 && "Review"}
+                        {currentStep === 1 && "Project Scope"}
+                        {currentStep === 2 && "Color Palette"}
+                        {currentStep === 3 && "The Vision"}
+                        {currentStep === 4 && "Visuals"}
+                        {currentStep === 5 && "Review"}
                     </h1>
                     <p className="text-gray-400 text-sm mt-1">
-                        {currentStep === 1 && "Let's set the tone for your project."}
-                        {currentStep === 2 && "Describe what you need in detail."}
-                        {currentStep === 3 && "Upload inspiration or references."}
-                        {currentStep === 4 && "Double check everything before sending."}
+                        {currentStep === 1 && "Define the size and type of your project."}
+                        {currentStep === 2 && "Set the visual tone."}
+                        {currentStep === 3 && "Describe what you need in detail."}
+                        {currentStep === 4 && "Upload inspiration or references."}
+                        {currentStep === 5 && "Double check everything before sending."}
                     </p>
                  </div>
                  <div className="text-xs font-mono text-gray-600 border border-white/10 px-2 py-1 rounded-md">
@@ -207,10 +219,61 @@ export default function CommissionPage() {
               <div className="flex-1 relative">
                 <AnimatePresence mode="wait">
                   
-                  {/* STEP 1: COOLORS */}
-                  {currentStep === 1 && (
+                   {/* STEP 1: SCOPE (PRICING) */}
+                   {currentStep === 1 && (
                     <motion.div
                       key="step1"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
+                    >
+                       <div>
+                         <label className="block text-sm font-semibold text-gray-300 mb-3">Select Package</label>
+                         <div className="grid grid-cols-2 gap-4">
+                           <button 
+                             onClick={() => setPackageType('Standard')}
+                             className={`p-4 rounded-xl border text-left transition-all ${packageType === 'Standard' ? 'bg-white text-black border-white' : 'bg-black/20 border-white/10 hover:bg-white/5 text-gray-400'}`}
+                           >
+                              <div className="font-bold">Standard</div>
+                              <div className="text-xs opacity-70">2,500 / frame</div>
+                           </button>
+                           <button 
+                             onClick={() => setPackageType('Premium')}
+                             className={`p-4 rounded-xl border text-left transition-all ${packageType === 'Premium' ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/20' : 'bg-black/20 border-white/10 hover:bg-white/5 text-gray-400'}`}
+                           >
+                              <div className="font-bold">Premium</div>
+                              <div className="text-xs opacity-70">5,000 / frame</div>
+                           </button>
+                         </div>
+                       </div>
+
+                       <div>
+                         <label className="block text-sm font-semibold text-gray-300 mb-2">Number of Frames</label>
+                         <div className="flex items-center gap-4">
+                           <input 
+                              type="number" 
+                              min="1"
+                              max="50"
+                              value={frameCount}
+                              onChange={(e) => setFrameCount(parseInt(e.target.value) || 0)}
+                              className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                           />
+                         </div>
+                       </div>
+
+                       <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-6 flex justify-between items-center">
+                          <span className="text-gray-400">Estimated Total</span>
+                          <span className="text-2xl font-bold text-white">R$ {new Intl.NumberFormat().format(estimatedPrice)}</span>
+                       </div>
+                    </motion.div>
+                  )}
+
+                  {/* STEP 2: COOLORS */}
+                  {currentStep === 2 && (
+                    <motion.div
+                      key="step2"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
@@ -231,10 +294,10 @@ export default function CommissionPage() {
                     </motion.div>
                   )}
 
-                  {/* STEP 2: DESCRIPTION */}
-                  {currentStep === 2 && (
+                  {/* STEP 3: DESCRIPTION */}
+                  {currentStep === 3 && (
                     <motion.div
-                      key="step2"
+                      key="step3"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
@@ -242,10 +305,11 @@ export default function CommissionPage() {
                       className="space-y-4"
                     >
                        <label className="block text-sm font-semibold text-gray-300">Detailed Explanation</label>
+                       <p className="text-xs text-gray-500 mb-2">Please list what frames you need (e.g., Shop, Inventory, Settings) and specific features.</p>
                        <textarea 
                         autoFocus
                         rows={6}
-                        placeholder="I need a main menu with a settings frame, shop frame, and..." 
+                        placeholder="1. Main Menu - Play, Settings, Credits buttons..." 
                         className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-5 text-white text-base focus:outline-none focus:border-blue-500 transition-colors resize-none"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
@@ -253,10 +317,10 @@ export default function CommissionPage() {
                     </motion.div>
                   )}
 
-                  {/* STEP 3: IMAGES */}
-                  {currentStep === 3 && (
+                  {/* STEP 4: IMAGES */}
+                  {currentStep === 4 && (
                     <motion.div
-                      key="step3"
+                      key="step4"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
@@ -297,10 +361,10 @@ export default function CommissionPage() {
                     </motion.div>
                   )}
 
-                  {/* STEP 4: REVIEW */}
-                  {currentStep === 4 && (
+                  {/* STEP 5: REVIEW */}
+                  {currentStep === 5 && (
                     <motion.div
-                      key="step4"
+                      key="step5"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
@@ -315,19 +379,20 @@ export default function CommissionPage() {
                           </div>
                        </div>
 
-                       <div className="space-y-4">
+                       <div className="grid grid-cols-2 gap-3">
                           <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
-                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Palette</p>
-                              <p className="truncate text-blue-400 underline">{coolors}</p>
+                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Package</p>
+                              <p className="text-white font-medium">{packageType} <span className="text-gray-500 text-sm">({frameCount} frames)</span></p>
                           </div>
                           <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
-                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Description</p>
-                              <p className="text-gray-300 text-sm line-clamp-3">{desc}</p>
+                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Total</p>
+                              <p className="text-white font-bold">R$ {new Intl.NumberFormat().format(estimatedPrice)}</p>
                           </div>
-                          <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
-                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Attachments</p>
-                              <p className="text-gray-300 text-sm">{files.length} images attached</p>
-                          </div>
+                       </div>
+
+                       <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
+                          <p className="text-xs text-gray-500 uppercase font-bold mb-1">Description</p>
+                          <p className="text-gray-300 text-sm line-clamp-3">{desc}</p>
                        </div>
                     </motion.div>
                   )}
