@@ -79,7 +79,7 @@ export default function Home() {
       {/* Header */}
       <header 
         ref={navbarRef}
-        className="fixed top-6 left-1/2 -translate-x-1/2 -translate-y-5 opacity-0 pointer-events-none z-[999] flex gap-10 items-center px-8 py-3 rounded-full bg-black/85 backdrop-blur-md border border-white/10 transition-all duration-300 w-[calc(100%-40px)] md:w-auto justify-between md:justify-start"
+        className="fixed top-6 left-1/2 -translate-x-1/2 -translate-y-5 opacity-0 pointer-events-none z-999 flex gap-10 items-center px-8 py-3 rounded-full bg-black/85 backdrop-blur-md border border-white/10 transition-all duration-300 w-[calc(100%-40px)] md:w-auto justify-between md:justify-start"
       >
         <div className="flex items-center gap-3">
           <Image src="/assets/PFP.png" alt="Profile" width={32} height={32} className="rounded-full" />
@@ -110,9 +110,9 @@ export default function Home() {
         {/* About Section */}
         <section className="relative w-full min-h-[80vh] flex items-center justify-center text-center px-5 pt-32 pb-20 overflow-hidden">
           {/* Collage BG */}
-          <div className="absolute -top-[20%] -left-[20%] w-[140%] h-[140%] grid grid-cols-2 md:grid-cols-4 gap-5 opacity-25 blur-sm grayscale-[40%] -rotate-[5deg] z-[1] pointer-events-none">
+          <div className="absolute -top-[20%] -left-[20%] w-[140%] h-[140%] grid grid-cols-2 md:grid-cols-4 gap-5 opacity-25 blur-sm grayscale-40 -rotate-[5deg] z-1 pointer-events-none">
             {[1,2,3,4,5,6,7,8].map((i) => (
-              <div key={i} className="w-full h-[200px] md:h-[300px] rounded-xl overflow-hidden bg-[#222]">
+                <div key={i} className="w-full h-50 md:h-75 rounded-xl overflow-hidden bg-[#222]">
                 <Image 
                    src={`/assets/${i % 2 === 0 ? 'FiveGuys.png' : 'McDonalds.png'}`} 
                    alt="collage" width={500} height={500} className="w-full h-full object-cover opacity-80" 
@@ -120,14 +120,14 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(8,8,8,0.4)_0%,rgba(8,8,8,1)_80%)] z-[2]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(8,8,8,0.4)_0%,rgba(8,8,8,1)_80%)] z-2" />
           
-          <div className="relative z-[3] max-w-3xl flex flex-col items-center gap-6 anim-scroll">
+          <div className="relative z-3 max-w-3xl flex flex-col items-center gap-6 anim-scroll">
             <div className="flex items-center gap-2 bg-white/10 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300 backdrop-blur-md">
               <span className="text-white tracking-widest text-xs">★★★★★</span>
               <span>5+ Satisfied Customers</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent leading-[1.1]">
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter bg-linear-to-b from-white via-white to-gray-500 bg-clip-text text-transparent leading-[1.1]">
               Hobbiest Designer:<br/>Making with Love
             </h1>
             <p className="text-lg text-[#A0A0A0] max-w-xl leading-relaxed">
@@ -139,17 +139,17 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="max-w-[1300px] mx-auto px-6 md:px-10">
+        <div className="max-w-325 mx-auto px-6 md:px-10">
           
           <div className="text-2xl font-semibold mb-8 mt-10" id="work">Selected Works</div>
 
           {/* Bento Grid */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 mb-20">
             {/* Card 1 */}
-            <div className="group relative bg-[#141414] border border-white/10 rounded-3xl overflow-hidden aspect-video md:col-span-7 md:aspect-[16/10] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 anim-scroll">
+            <div className="group relative bg-[#141414] border border-white/10 rounded-3xl overflow-hidden aspect-video md:col-span-7 md:aspect-16/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 anim-scroll">
               <Image src="/assets/FiveGuys.png" alt="Five Guys" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
-                <span className="text-blue-500 text-xs font-bold uppercase tracking-wider mb-1">Food Menu</span>
+              <div className="absolute inset-0 bg-linear-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
+                <span className="text-red-500 text-xs font-bold uppercase tracking-wider mb-1">Food Menu</span>
                 <h3 className="text-2xl font-semibold">Five Guys</h3>
               </div>
             </div>
@@ -157,8 +157,8 @@ export default function Home() {
             {/* Card 2 */}
             <div className="group relative bg-[#141414] border border-white/10 rounded-3xl overflow-hidden aspect-video md:col-span-5 md:aspect-[1/0.89] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 anim-scroll">
               <Image src="/assets/BopIT.png" alt="PS99" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
-                <span className="text-blue-500 text-xs font-bold uppercase tracking-wider mb-1">For Fun</span>
+              <div className="absolute inset-0 bg-linear-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
+                <span className="text-red-500 text-xs font-bold uppercase tracking-wider mb-1">For Fun</span>
                 <h3 className="text-2xl font-semibold">PS99 Updates</h3>
               </div>
             </div>
@@ -166,17 +166,17 @@ export default function Home() {
              {/* Card 3 */}
              <div className="group relative bg-[#141414] border border-white/10 rounded-3xl overflow-hidden aspect-video md:col-span-5 md:aspect-[1/0.89] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 anim-scroll">
               <Image src="/assets/McDonalds.png" alt="McDonalds" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
-                <span className="text-blue-500 text-xs font-bold uppercase tracking-wider mb-1">Game Shop</span>
+              <div className="absolute inset-0 bg-linear-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
+                <span className="text-red-500 text-xs font-bold uppercase tracking-wider mb-1">Game Shop</span>
                 <h3 className="text-2xl font-semibold">McDonald&apos;s</h3>
               </div>
             </div>
 
             {/* Card 4 */}
-            <div className="group relative bg-[#141414] border border-white/10 rounded-3xl overflow-hidden aspect-video md:col-span-7 md:aspect-[16/10] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 anim-scroll">
+            <div className="group relative bg-[#141414] border border-white/10 rounded-3xl overflow-hidden aspect-video md:col-span-7 md:aspect-16/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 anim-scroll">
               <Image src="/assets/TacoBell.png" alt="Taco Bell" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
-                <span className="text-blue-500 text-xs font-bold uppercase tracking-wider mb-1">Information</span>
+              <div className="absolute inset-0 bg-linear-to-t from-black/95 to-transparent flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-5 md:group-hover:translate-y-0 transition-all duration-300">
+                <span className="text-red-500 text-xs font-bold uppercase tracking-wider mb-1">Information</span>
                 <h3 className="text-2xl font-semibold">Taco Bell</h3>
               </div>
             </div>
@@ -193,30 +193,30 @@ export default function Home() {
                 <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-8 w-7" />
                 2,500<span className="text-base font-normal text-gray-500 ml-2">/ frame</span>
               </div>
-              <div className="text-2xl font-semibold text-blue-400 mb-4">$15<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
+              <div className="text-2xl font-semibold text-red-400 mb-4">$15<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
               <p className="text-gray-400 mb-6">For simple, static interface needs.</p>
               <div className="flex flex-col gap-4 mt-auto">
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> Image Assets Included</div>
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> .fig (Figma) File Included</div>
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> High Quality Design</div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> Image Assets Included</div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> .fig (Figma) File Included</div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> High Quality Design</div>
               </div>
             </div>
 
             {/* Premium */}
-            <div className="relative bg-gradient-to-br from-[#181818] to-[#101010] border border-blue-500/30 rounded-3xl p-8 flex flex-col h-full shadow-[0_0_30px_rgba(59,130,246,0.05)] anim-scroll">
-              <div className="bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded-full w-fit mb-4">Premium Creation</div>
+            <div className="relative bg-linear-to-br from-[#181818] to-[#101010] border border-red-500/30 rounded-3xl p-8 flex flex-col h-full shadow-[0_0_30px_rgba(248,56,57,0.05)] anim-scroll">
+              <div className="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full w-fit mb-4">Premium Creation</div>
               <div className="text-5xl font-bold mb-2 flex items-center gap-2">
                 <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-8 w-7" />
                 5,000<span className="text-base font-normal text-gray-500 ml-2">/ frame</span>
               </div>
-              <div className="text-2xl font-semibold text-blue-400 mb-4">$20<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
+              <div className="text-2xl font-semibold text-red-400 mb-4">$20<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
               <p className="text-gray-400 mb-6">Full implementation and motion.</p>
               <div className="flex flex-col gap-4 mt-auto">
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> Image Assets Included</div>
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> .fig (Figma) File Included</div>
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> <strong className="text-white">.rbxl File Included</strong></div>
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> Imported to Studio for you</div>
-                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> <strong className="text-white">Basic Animations</strong></div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> Image Assets Included</div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> .fig (Figma) File Included</div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> <strong className="text-white">.rbxl File Included</strong></div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> Imported to Studio for you</div>
+                <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-red-500 w-5 h-5"/> <strong className="text-white">Basic Animations</strong></div>
               </div>
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function Home() {
 
           {/* FAQ Accordion */}
           <div className="flex flex-col gap-4 max-w-4xl anim-scroll">
-             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-blue-500 open:bg-[#111]">
+             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-red-500 open:bg-[#111]\">
                 <summary className="flex justify-between items-center p-6 cursor-pointer font-semibold text-lg list-none">
                   What is your Terms of Service?
                   <span className="text-2xl font-light text-gray-500 group-open:rotate-45 transition-transform duration-300">+</span>
@@ -247,7 +247,7 @@ export default function Home() {
                 </div>
              </details>
 
-             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-blue-500 open:bg-[#111]">
+             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-red-500 open:bg-[#111]">
                 <summary className="flex justify-between items-center p-6 cursor-pointer font-semibold text-lg list-none">
                   What is your Current Schedule?
                   <span className="text-2xl font-light text-gray-500 group-open:rotate-45 transition-transform duration-300">+</span>
@@ -259,7 +259,7 @@ export default function Home() {
                 </div>
              </details>
 
-             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-blue-500 open:bg-[#111]">
+             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-red-500 open:bg-[#111]">
                 <summary className="flex justify-between items-center p-6 cursor-pointer font-semibold text-lg list-none">
                   What is the Process?
                   <span className="text-2xl font-light text-gray-500 group-open:rotate-45 transition-transform duration-300">+</span>
@@ -275,7 +275,7 @@ export default function Home() {
                 </div>
              </details>
 
-             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-blue-500 open:bg-[#111]">
+             <details className="group bg-[#141414] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all open:border-red-500 open:bg-[#111]">
                 <summary className="flex justify-between items-center p-6 cursor-pointer font-semibold text-lg list-none">
                   Payment Methods?
                   <span className="text-2xl font-light text-gray-500 group-open:rotate-45 transition-transform duration-300">+</span>
@@ -293,7 +293,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8">Let&apos;s design something.</h2>
             <button 
               onClick={copyDiscord}
-              className="bg-[#5865F2] text-white px-10 py-4 rounded-full inline-flex items-center gap-3 font-semibold text-lg hover:-translate-y-1 hover:shadow-lg hover:shadow-[#5865F2]/40 transition-all"
+              className="bg-[#f83839] text-white px-10 py-4 rounded-full inline-flex items-center gap-3 font-semibold text-lg hover:-translate-y-1 hover:shadow-lg hover:shadow-[#f83839]/40 transition-all"
             >
               <Copy size={20} />
               uhalexz_

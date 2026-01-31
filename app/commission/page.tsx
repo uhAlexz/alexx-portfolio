@@ -147,7 +147,7 @@ export default function CommissionPage() {
             <p className="text-sm text-gray-300 mb-4">
               Join the Discord server to open a ticket and discuss the project.
             </p>
-            <a href={DISCORD_INVITE_LINK} target="_blank" rel="noopener noreferrer" className="w-full bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold py-3 px-6 rounded-full transition-all flex items-center justify-center gap-2 hover:scale-105">
+            <a href={DISCORD_INVITE_LINK} target="_blank" rel="noopener noreferrer" className="w-full bg-[#f83839] hover:bg-[#e02020] text-white font-bold py-3 px-6 rounded-full transition-all flex items-center justify-center gap-2 hover:scale-105">
                Join Discord Server
             </a>
           </div>
@@ -166,17 +166,17 @@ export default function CommissionPage() {
           <ChevronLeft size={20} /> Back to Portfolio
         </Link>
 
-        <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl min-h-[500px] flex flex-col relative overflow-hidden backdrop-blur-xl">
+        <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl min-h-125 flex flex-col relative overflow-hidden backdrop-blur-xl">
           
           {/* Header & Progress */}
           {!user ? (
             <div className="flex-1 flex flex-col items-center justify-center text-center py-12">
-              <div className="w-16 h-16 bg-[#5865F2]/10 rounded-full flex items-center justify-center mb-6">
-                <LogIn className="text-[#5865F2] w-8 h-8" />
+              <div className="w-16 h-16 bg-[#f83839]/10 rounded-full flex items-center justify-center mb-6">
+                <LogIn className="text-[#f83839] w-8 h-8" />
               </div>
               <h2 className="text-2xl font-bold mb-2">Authentication Required</h2>
               <p className="mb-8 text-gray-400 max-w-xs">Please login with Discord to verify your identity and start your commission.</p>
-              <button onClick={handleLogin} className="bg-[#5865F2] hover:bg-[#4752c4] text-white font-bold py-3 px-8 rounded-full transition-all hover:scale-105">
+              <button onClick={handleLogin} className="bg-[#f83839] hover:bg-[#e02020] text-white font-bold py-3 px-8 rounded-full transition-all hover:scale-105">
                 Login with Discord
               </button>
             </div>
@@ -188,7 +188,7 @@ export default function CommissionPage() {
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.5, ease: "circOut" }}
-                  className="absolute left-0 top-0 h-full bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                  className="absolute left-0 top-0 h-full bg-red-500 rounded-full shadow-[0_0_10px_rgba(248,56,57,0.5)]"
                 />
               </div>
 
@@ -245,7 +245,7 @@ export default function CommissionPage() {
                            </button>
                            <button 
                              onClick={() => setPackageType('Premium')}
-                             className={`p-4 rounded-xl border text-left transition-all ${packageType === 'Premium' ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/20' : 'bg-black/20 border-white/10 hover:bg-white/5 text-gray-400'}`}
+                             className={`p-4 rounded-xl border text-left transition-all ${packageType === 'Premium' ? 'bg-red-600 text-white border-red-500 shadow-lg shadow-red-500/20' : 'bg-black/20 border-white/10 hover:bg-white/5 text-gray-400'}`}
                            >
                               <div className="font-bold">Premium</div>
                               <div className="text-xs opacity-70 flex items-center gap-1">
@@ -266,7 +266,7 @@ export default function CommissionPage() {
                               max="50"
                               value={frameCount}
                               onChange={(e) => setFrameCount(parseInt(e.target.value) || 0)}
-                              className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                              className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-4 text-white text-lg focus:outline-none focus:border-red-500 transition-colors"
                            />
                          </div>
                        </div>
@@ -281,7 +281,7 @@ export default function CommissionPage() {
                           </div>
                           <div className="flex justify-between items-center border-t border-white/10 pt-3">
                             <span className="text-gray-400">Estimated Total (USD)</span>
-                            <span className="text-2xl font-bold text-blue-400">${packageType === 'Standard' ? (frameCount * 15).toFixed(2) : (frameCount * 20).toFixed(2)}</span>
+                            <span className="text-2xl font-bold text-red-400">${packageType === 'Standard' ? (frameCount * 15).toFixed(2) : (frameCount * 20).toFixed(2)}</span>
                           </div>
                        </div>
                     </motion.div>
@@ -302,7 +302,7 @@ export default function CommissionPage() {
                         autoFocus
                         type="url" 
                         placeholder="https://coolors.co/..." 
-                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-5 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-5 text-white text-lg focus:outline-none focus:border-red-500 transition-colors"
                         value={coolors}
                         onChange={(e) => setCoolors(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && nextStep()}
@@ -327,7 +327,7 @@ export default function CommissionPage() {
                         autoFocus
                         rows={6}
                         placeholder="1. Main Menu - Play, Settings, Credits buttons..." 
-                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-5 text-white text-base focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                        className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-5 text-white text-base focus:outline-none focus:border-red-500 transition-colors resize-none"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
                       ></textarea>
@@ -368,7 +368,7 @@ export default function CommissionPage() {
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 key={idx} 
-                                className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border border-white/10 shadow-lg"
+                                className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden border border-white/10 shadow-lg"
                             >
                               <Image src={src} alt="preview" fill className="object-cover" />
                             </motion.div>
@@ -446,7 +446,7 @@ export default function CommissionPage() {
                     <button 
                         onClick={handleSubmit}
                         disabled={loading}
-                        className={`bg-blue-600 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:scale-105 transition-transform ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`bg-red-600 text-white font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:scale-105 transition-transform ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         {loading ? <RefreshCw className="animate-spin" size={18} /> : <Check size={18} />}
                         {loading ? 'Sending...' : 'Submit Commission'}

@@ -56,7 +56,7 @@ export async function POST(req: Request) {
 
     const embed: DiscordEmbed = {
       title: "🎨 New Commission Request!",
-      color: 0x3b82f6, 
+      color: 0xf83839, 
       fields: [
         { name: "User", value: `${username} (<@${discordId}>)`, inline: true },
         { name: "Package", value: packageType, inline: true },
