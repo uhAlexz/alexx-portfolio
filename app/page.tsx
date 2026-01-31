@@ -189,7 +189,11 @@ export default function Home() {
             {/* Standard */}
             <div className="bg-[#141414] border border-white/10 rounded-3xl p-8 flex flex-col h-full anim-scroll hover:border-white/20 transition-colors">
               <div className="bg-white/10 text-xs font-bold px-3 py-1.5 rounded-full w-fit mb-4">Standard Creation</div>
-              <div className="text-5xl font-bold mb-4">2,500<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
+              <div className="text-5xl font-bold mb-2 flex items-center gap-2">
+                <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-8 w-7" />
+                2,500<span className="text-base font-normal text-gray-500 ml-2">/ frame</span>
+              </div>
+              <div className="text-2xl font-semibold text-blue-400 mb-4">$15<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
               <p className="text-gray-400 mb-6">For simple, static interface needs.</p>
               <div className="flex flex-col gap-4 mt-auto">
                 <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> Image Assets Included</div>
@@ -201,7 +205,11 @@ export default function Home() {
             {/* Premium */}
             <div className="relative bg-gradient-to-br from-[#181818] to-[#101010] border border-blue-500/30 rounded-3xl p-8 flex flex-col h-full shadow-[0_0_30px_rgba(59,130,246,0.05)] anim-scroll">
               <div className="bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded-full w-fit mb-4">Premium Creation</div>
-              <div className="text-5xl font-bold mb-4">5,000<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
+              <div className="text-5xl font-bold mb-2 flex items-center gap-2">
+                <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-8 w-7" />
+                5,000<span className="text-base font-normal text-gray-500 ml-2">/ frame</span>
+              </div>
+              <div className="text-2xl font-semibold text-blue-400 mb-4">$20<span className="text-base font-normal text-gray-500 ml-2">/ frame</span></div>
               <p className="text-gray-400 mb-6">Full implementation and motion.</p>
               <div className="flex flex-col gap-4 mt-auto">
                 <div className="flex items-center gap-3 text-sm text-gray-300"><Check className="text-blue-500 w-5 h-5"/> Image Assets Included</div>

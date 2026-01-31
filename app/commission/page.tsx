@@ -237,14 +237,22 @@ export default function CommissionPage() {
                              className={`p-4 rounded-xl border text-left transition-all ${packageType === 'Standard' ? 'bg-white text-black border-white' : 'bg-black/20 border-white/10 hover:bg-white/5 text-gray-400'}`}
                            >
                               <div className="font-bold">Standard</div>
-                              <div className="text-xs opacity-70">2,500 / frame</div>
+                              <div className="text-xs opacity-70 flex items-center gap-1">
+                                <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-3 w-3" />
+                                2,500 / frame
+                              </div>
+                              <div className="text-xs opacity-70">$15 / frame</div>
                            </button>
                            <button 
                              onClick={() => setPackageType('Premium')}
                              className={`p-4 rounded-xl border text-left transition-all ${packageType === 'Premium' ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/20' : 'bg-black/20 border-white/10 hover:bg-white/5 text-gray-400'}`}
                            >
                               <div className="font-bold">Premium</div>
-                              <div className="text-xs opacity-70">5,000 / frame</div>
+                              <div className="text-xs opacity-70 flex items-center gap-1">
+                                <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-3 w-3" />
+                                5,000 / frame
+                              </div>
+                              <div className="text-xs opacity-70">$20 / frame</div>
                            </button>
                          </div>
                        </div>
@@ -263,9 +271,18 @@ export default function CommissionPage() {
                          </div>
                        </div>
 
-                       <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-6 flex justify-between items-center">
-                          <span className="text-gray-400">Estimated Total</span>
-                          <span className="text-2xl font-bold text-white">R$ {new Intl.NumberFormat().format(estimatedPrice)}</span>
+                       <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-6 space-y-3">
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-400">Estimated Total (Robux)</span>
+                            <div className="flex items-center gap-1">
+                              <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-5 w-5" />
+                              <span className="text-2xl font-bold text-white">R$ {new Intl.NumberFormat().format(estimatedPrice)}</span>
+                            </div>
+                          </div>
+                          <div className="flex justify-between items-center border-t border-white/10 pt-3">
+                            <span className="text-gray-400">Estimated Total (USD)</span>
+                            <span className="text-2xl font-bold text-blue-400">${packageType === 'Standard' ? (frameCount * 15).toFixed(2) : (frameCount * 20).toFixed(2)}</span>
+                          </div>
                        </div>
                     </motion.div>
                   )}
@@ -385,9 +402,13 @@ export default function CommissionPage() {
                               <p className="text-white font-medium">{packageType} <span className="text-gray-500 text-sm">({frameCount} frames)</span></p>
                           </div>
                           <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
-                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Total</p>
-                              <p className="text-white font-bold">R$ {new Intl.NumberFormat().format(estimatedPrice)}</p>
+                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Total (Robux)</p>
+                              <p className="text-white font-bold flex items-center gap-1"><img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/e/d/f/edfae9388da4cd8496b885a8a2df613372500d9c.png" alt="Robux" className="h-4 w-4" />R$ {new Intl.NumberFormat().format(estimatedPrice)}</p>
                           </div>
+                       </div>
+                       <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
+                              <p className="text-xs text-gray-500 uppercase font-bold mb-1">Total (USD)</p>
+                              <p className="text-blue-400 font-bold text-lg">${packageType === 'Standard' ? (frameCount * 15).toFixed(2) : (frameCount * 20).toFixed(2)}</p>
                        </div>
 
                        <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
